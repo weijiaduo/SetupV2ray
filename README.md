@@ -32,7 +32,7 @@
 
 VPS 服务器选择的是国外的 vultr，按小时计费，随时可以停止服务器，比较好用。首先去它的[官网](https://www.vultr.com/)注册并激活一个账号：
 
-![注册 vultr 账号](asset/注册 vultr 账号.png)
+![注册 vultr 账号](asset/注册vultr账号.png)
 
 ---
 
