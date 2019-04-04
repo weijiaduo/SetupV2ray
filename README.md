@@ -258,12 +258,12 @@ bash <(curl -L -s https://install.direct/go.sh)
     "sniffing": {
       "enabled": true,
       "destOverride": [
-	      "http",
-	      "tls"
+	 "http",
+	 "tls"
        ]
     },
     "settings": {
-      "udp": true	// 开启 UDP 协议支持
+      "udp": true
     }
   },{
      "port": 8080,
@@ -271,23 +271,27 @@ bash <(curl -L -s https://install.direct/go.sh)
      "sniffing": {
        "enabled": true,
        "destOverride": [
-	       "http",
-	       "tls"
+	 "http",
+	 "tls"
        ]
     }
   }],
   "outbounds": [{
+    "tag": "proxy-vmess",
     "protocol": "vmess",
     "settings": {
-       "vnext": [{
-	       "address": "8.8.8.8", // 服务器 IP
-	       "port": 1234, // 服务端 v2ray 配置的端口
-	       "users": [{
-             // 服务端 v2ray 配置的 UUID
-             "id": "e2e89136-3dcb-11e9-b12a-560001ed0de4",
-	         "alterId": 4 // 比服务端的值小
-	       }]
-       }]
+      "vnext": [{
+        // 服务器 ip 地址
+        "address": "8.8.8.8",
+        // 服务器端口号
+        "port": 1234,
+        "users": [{
+          // V2ray 生成的 uuid
+          "id": "e2e89136-3dcb-11e9-b12a-560001ed0de4",
+          // 要比服务器的 alterId 小
+          "alterId": 4
+        }]
+      }]
     }
   },{
     "tag": "direct",
@@ -304,9 +308,37 @@ bash <(curl -L -s https://install.direct/go.sh)
     "rules": [
       {
         "type": "field",
-        "ip": ["geoip:private"],
+        "outboundTag": "direct"
+        "domain": [
+          "geosite:cn"
+        ]
+      },
+      {
+        "type": "field",
+        "outboundTag": "direct",
+        "ip": [
+          "geoip:cn",
+          "geoip:private"
+        ]
+      }，
+      {
+        "type": "field",
+        "domain": ["geoip:category-ads"],
         "outboundTag": "blocked"
+      },
+      {
+        "type": "field",
+        // 默认跳过国内网站，如果想要代理某个国内网站可以添加到列表中
+        "domain": ["cnblogs.com"],
+        "outboundTag": "proxy-vmess"
       }
+    ]
+  },
+  "dns": {
+    "server": [
+      "8.8.8.8",
+      "1.1.1.1",
+      "localhost"
     ]
   }
 }
@@ -326,7 +358,7 @@ systemctl restart v2ray
 
 为了让浏览器使用 v2ray 代理，还需要在浏览器中安装插件<span style="color:red">（Windows 客户端一般都有自动设置 PAC 系统代理，不需要浏览器插件就可以分网站使用代理，因此这部分内容只针对 Linux 客户端）</span>，使得浏览器访问页面时经过代理服务器，最终访问到所需的页面。Chrome 需要安装扩展插件 Omega，而 Firefox 需要 Proxy SwitchyOmega，其实这两个都是同一个插件。插件下载地址如下：
 
-> 下载地址： https://github.com/FelisCatus/SwitchyOmega/releases
+> https://github.com/FelisCatus/SwitchyOmega/releases
 
 安装完扩展插件之后需要重启浏览器生效，进入 SwitchyOmega 的配置界面，选择【Proxy】标签页，设定默认 Proxy 为 SOCKS5 协议 127.0.0.1 地址 1080 端口，然后点击 Apply changes 使设定生效：
 
@@ -447,6 +479,6 @@ sysctl -p
 
 > https://github.com/firewallTutor/firewallTutor  
 https://github.com/Alvin9999/new-pac/wiki/%E8%87%AA%E5%BB%BAv2ray%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%95%99%E7%A8%8B  
-https://yuan.ga/v2ray-complete-tutorial/
-https://www.bandwagonhost.net/1807.html
-https://www.cnblogs.com/Eason1024/p/8177665.html
+https://yuan.ga/v2ray-complete-tutorial/  
+https://www.bandwagonhost.net/1807.html  
+https://www.cnblogs.com/Eason1024/p/8177665.html  
