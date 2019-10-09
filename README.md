@@ -165,70 +165,70 @@ scp root@8.8.8.8:/etc/v2ray/config.json .
 
 ```json
 {
- "outbound": {
-  "streamSettings": null,
-  "tag": null,
-  "protocol": "freedom",
-  "mux": null,
-  "settings": null
- },
- "log": {
-  "access": "/var/log/v2ray/access.log",
-  "loglevel": "info",
-  "error": "/var/log/v2ray/error.log"
- },
- "inboundDetour": null,
- "inbound": {
-  "streamSettings": {
-   "network": "tcp",
-   "kcpSettings": null,
-   "wsSettings": null,
-   "tcpSettings": null,
-   "tlsSettings": {},
-   "security": ""
+  "outbound": {
+    "streamSettings": null,
+    "tag": null,
+    "protocol": "freedom",
+    "mux": null,
+    "settings": null
   },
-  "listen": null,
-  "protocol": "vmess",
-  "port": 1234,
-  "settings": {
-   "ip": null,
-   "udp": true,
-   "clients": [
-    {
-     "alterId": 100,
-     "security": "aes-128-gcm",
-     "id": "e2e89136-3dcb-11e9-b12a-560001ed0de4"
+  "log": {
+    "access": "/var/log/v2ray/access.log",
+    "loglevel": "info",
+    "error": "/var/log/v2ray/error.log"
+  },
+  "inboundDetour": null,
+  "inbound": {
+    "streamSettings": {
+      "network": "tcp",
+      "kcpSettings": null,
+      "wsSettings": null,
+      "tcpSettings": null,
+      "tlsSettings": {},
+      "security": ""
+    },
+    "listen": null,
+    "protocol": "vmess",
+    "port": 1234,
+    "settings": {
+      "ip": null,
+      "udp": true,
+      "clients": [
+        {
+          "alterId": 100,
+          "security": "aes-128-gcm",
+          "id": "e2e89136-3dcb-11e9-b12a-560001ed0de4"
+        }
+      ],
+      "auth": null
     }
-   ],
-   "auth": null
-  }
- },
- "outboundDetour": [
-  {
-   "tag": "blocked",
-   "protocol": "blackhole",
-   "settings": null
-  }
- ],
- "routing": {
-  "strategy": "rules",
-  "settings": {
-   "rules": [
+  },
+  "outboundDetour": [
     {
-     "ip": [
-      "0.0.0.0/8",
-      "10.0.0.0/8"
-     ],
-     "domain": null,
-     "type": "field",
-     "port": null,
-     "outboundTag": "blocked"
+      "tag": "blocked",
+      "protocol": "blackhole",
+      "settings": null
     }
-   ],
-   "domainStrategy": null
-  }
- },
- "dns": null
+  ],
+  "routing": {
+    "strategy": "rules",
+    "settings": {
+      "rules": [
+        {
+          "ip": [
+            "0.0.0.0/8",
+            "10.0.0.0/8"
+          ],
+          "domain": null,
+          "type": "field",
+          "port": null,
+          "outboundTag": "blocked"
+        }
+      ],
+      "domainStrategy": null
+    }
+  },
+  "dns": null
 }
 ```
 
@@ -250,7 +250,7 @@ bash <(curl -L -s https://install.direct/go.sh)
 
 安装完成之后，需要对客户端的 v2ray 配置文件进行一些修改，使它可以连上服务器端的 v2ray。同样地，本地机器的配置文件路径在 `/etc/v2ray/config.json`，主要对 `outbounds` 中的 `address`，`port` 和 `id` 进行修改：
 
-```json
+```
 {
   "inbounds": [{
     "port": 1080,
