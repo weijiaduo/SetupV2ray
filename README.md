@@ -73,7 +73,7 @@ VPS 服务器选择的是国外的 vultr，按小时计费，随时可以停止�
 
 ![部署完成运行状态](asset/部署完成运行状态.png)
 
-接下来测试是否能够 ping 通服务器，有返回说明可以连接服务器，超时没有返回则说明该服务器 ip 已经被墙了，导致无法连接服务器。<span style="color:red">如果无法 ping 通，那么就需要按照上面的步骤再重新部署一个新的服务器（注意：这个网络连接测操作一定要做，否则后面无法正常使用）</span>。ping 命令的执行格式如下：
+接下来测试是否能够 `ping` 通服务器，有返回说明可以连接服务器，超时没有返回则说明该服务器 ip 已经被墙了，导致无法连接服务器。<span style="color:red">如果无法 `ping` 通，那么就需要按照上面的步骤再重新部署一个新的服务器（注意：这个网络连接测操作一定要做，否则后面无法正常使用）</span>。ping 命令的执行格式如下：
 
 ```bash
 # 假设 ip 为 8.8.8.8
@@ -96,7 +96,7 @@ ping 8.8.8.8
 
 #### 2.1 远程登录服务器
 
-部署完服务器之后，就需要在服务器上安装代理工具软件 v2ray，这里是通过 v2ray 一键搭建脚本来完成安装。为了运行该脚本，需要远程登录到服务器上。可以直接使用 ssh 登录服务器（Windows 可以用第三方工具 Xshell 来远程登录服务器，界面比较友好）：
+部署完服务器之后，就需要在服务器上安装代理工具软件 v2ray，这里是通过 v2ray 一键搭建脚本来完成安装。为了运行该脚本，需要远程登录到服务器上。可以直接使用 `ssh` 登录服务器（Windows 可以用第三方工具 Xshell 来远程登录服务器，界面比较友好）：
 
 ```bash
 # 假设服务器 ip 为 8.8.8.8
@@ -112,7 +112,7 @@ ssh root@8.8.8.8
 
 #### 2.1 安装 v2ray
 
-连接登录成功之后，就可以开始安装 v2ray 了，直接执行 v2ray一键部署管理脚本，命令如下（该命令的含义就是从网上下载 install.sh 脚本文件并执行此脚本）：
+连接登录成功之后，就可以开始安装 v2ray 了，直接执行 v2ray 一键部署管理脚本，命令如下（该命令的含义就是从网上下载 install.sh 脚本文件并执行此脚本）：
 
 ```bash
 wget -N --no-check-certificate https://raw.githubusercontent.com/KiriKira/v2ray.fun/kiriMod/install.sh && bash install.sh
@@ -128,25 +128,25 @@ wget -N --no-check-certificate https://raw.githubusercontent.com/KiriKira/v2ray.
 
 ![v2ray管理更改配置](asset/v2ray更改配置.png)
 
-第一步：更改 UUID，输入数字1，后面输入 y 确认：
+**第一步**：更改 UUID，输入数字1，后面输入 y 确认：
 
 ![v2ray更改UUID](asset/v2ray更改UUID.png)
 
-第二步：更改主端口，输入数字2，端口范围40～65535，理论上可以任意设置：
+**第二步**：更改主端口，输入数字2，端口范围40～65535，理论上可以任意设置：
 
 ![v2ray更改端口](asset/v2ray更改端口.png)
 
-第三步：更改加密方式，输入数字3：
+**第三步**：更改加密方式，输入数字3：
 
 ![v2ray更改加密方式](asset/v2ray更改加密方式.png)
 
-第四步：更改传输方式，输入数字4，输方式共有7种，这个对 v2ray 的速度有很大影响，具体选择哪个看自己的网络环境：
+**第四步**：更改传输方式，输入数字4，输方式共有7种，这个对 v2ray 的速度有很大影响，具体选择哪个看自己的网络环境：
 
 > 注意：普通TCP、普通mKCP、mKCP伪装FaceTime通话、mKCP伪装BT下载流量、mKCP伪装微信视频流量可直接设置、不需要域名，HTTP伪装和WebSocket流量需要你有域名，且域名绑定了你的vps服务器ip。
 
 ![v2ray更改传输模式](asset/v2ray更改传输模式.png)
 
-第五步：启动或重新启动 v2ray 服务，修改完上面几个配置之后，需要重新启动 v2ray 服务。因此回到 v2ray 管理首页，两次输入数字1（或者第二次输入3）：
+**第五步**：启动或重新启动 v2ray 服务，修改完上面几个配置之后，需要重新启动 v2ray 服务。因此回到 v2ray 管理首页，两次输入数字1（或者第二次输入3）：
 
 ![v2ray重启服务](asset/v2ray重启服务.png)
 
@@ -154,7 +154,7 @@ wget -N --no-check-certificate https://raw.githubusercontent.com/KiriKira/v2ray.
 
 ![v2ray服务端配置信息](asset/v2ray服务端配置信息.png)
 
-最后，需要把 v2ray 服务端的配置文件下载到本地机器（其实也不用下载下来，只需要知道配置文件的内容即可，但是下下来比较方便查看），可以使用 scp 命令复制配置文件到本地机器中，服务端的配置文件是 /etc/v2ray/config.json ：
+最后，需要把 v2ray 服务端的配置文件下载到本地机器（其实也不用下载下来，只需要知道配置文件的内容即可，但是下下来比较方便查看），可以使用 scp 命令复制配置文件到本地机器中，服务端的配置文件是 `/etc/v2ray/config.json`：
 
 ```bash
 # 复制到当前目录（.），需要输入服务器密码
@@ -248,7 +248,7 @@ Linux 系统可以直接使用一键安装命令来安装 v2ray：
 bash <(curl -L -s https://install.direct/go.sh)
 ```
 
-安装完成之后，需要对客户端的 v2ray 配置文件进行一些修改，使它可以连上服务器端的 v2ray。同样地，本地机器的配置文件路径在 /etc/v2ray/config.json，主要对 outbounds 中的 address，port 和 id 进行修改：
+安装完成之后，需要对客户端的 v2ray 配置文件进行一些修改，使它可以连上服务器端的 v2ray。同样地，本地机器的配置文件路径在 `/etc/v2ray/config.json`，主要对 `outbounds` 中的 `address`，`port` 和 `id` 进行修改：
 
 ```json
 {
@@ -308,7 +308,7 @@ bash <(curl -L -s https://install.direct/go.sh)
     "rules": [
       {
         "type": "field",
-        "outboundTag": "direct"
+        "outboundTag": "direct",
         "domain": [
           "geosite:cn"
         ]
@@ -320,7 +320,7 @@ bash <(curl -L -s https://install.direct/go.sh)
           "geoip:cn",
           "geoip:private"
         ]
-      }，
+      },
       {
         "type": "field",
         "domain": ["geoip:category-ads"],
@@ -356,7 +356,7 @@ systemctl restart v2ray
 
 ### 4. <span id="v4">浏览器安装代理插件</span>
 
-为了让浏览器使用 v2ray 代理，还需要在浏览器中安装插件<span style="color:red">（Windows 客户端一般都有自动设置 PAC 系统代理，不需要浏览器插件就可以分网站使用代理，因此这部分内容只针对 Linux 客户端）</span>，使得浏览器访问页面时经过代理服务器，最终访问到所需的页面。Chrome 需要安装扩展插件 Omega，而 Firefox 需要 Proxy SwitchyOmega，其实这两个都是同一个插件。插件下载地址如下：
+为了让浏览器使用 v2ray 代理，还需要在浏览器中安装插件<span style="color:red">（Windows 客户端一般都有自动设置 PAC 系统代理，不需要浏览器插件就可以分网站使用代理，因此这部分内容只针对 Linux 客户端）</span>，使得浏览器访问页面时经过代理服务器，最终访问到所需的页面。Chrome 需要安装扩展插件 `Omega`，而 Firefox 需要 `Proxy SwitchyOmega`，其实这两个都是同一个插件。插件下载地址如下：
 
 > https://github.com/FelisCatus/SwitchyOmega/releases
 
@@ -426,7 +426,6 @@ chmod +x bbr.sh
 
 ```bash
 wget https://kernel.ubuntu.com/~kernel-ppa/mainline/v4.10/linux-image-4.10.0-041000-generic_4.10.0-041000.201702191831_amd64.deb
-
 ```
 
 2） 安装升级内核
